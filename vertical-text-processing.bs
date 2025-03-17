@@ -1,0 +1,317 @@
+<pre class='metadata'>
+Title: Vertical Text Processing
+Group: WG21
+Audience: EWG
+Shortname: Pnnnn
+Revision: 0
+Status: D
+Date: 2025-04-01
+Editor: Jeremy Rifkin, jeremy@rifkin.dev
+Editor: Levi de koning
+Abstract: Many writing systems can be written vertically yet C++ offers no standard support for such text. This paper outlines a proposal to rectify this situation.
+Markup Shorthands: markdown on
+ED: https://jeremy-rifkin.github.io/proposals/drafts/cpp/vertical-text-processing-1.html
+!Source: [https://github.com/jeremy-rifkin/proposals/blob/main/cpp/vertical-text-processing.bs](https://github.com/jeremy-rifkin/proposals/blob/main/cpp/vertical-text-processing.bs)
+</pre>
+
+<style>
+table, th, td {
+    border: none;
+}
+th, td {
+    padding: 5px 10px;
+}
+th {
+    vertical-align: middle;
+}
+thead {
+    border-bottom: 2px solid black;
+}
+tbody tr:nth-child(even) {
+    background: #eee;
+}
+@media (prefers-color-scheme: dark) {
+    thead {
+        border-bottom: 2px solid white;
+    }
+    tbody tr:nth-child(even) {
+        background: #111;
+    }
+}
+</style>
+
+# Introduction
+
+Many writing systems, notably a handful of East Asian scripts, may be oriented either horizontally or vertically. While
+code is generally written left to write and top to bottom, there is no inherent reason this must be the case.
+
+WG21, as an international standardization group, strives to accommodate a diverse range of applications, uses, and
+environments. As such, WG21 should also strive to accommodate diverse typographic conventions even when other languages
+do not.
+
+# Motivation
+
+In addition to accessibility and friendliness for natural writing styles of all cultures, vertical writing of code
+allows for better use of computer monitors. Over the last few decades, monitors have definitively trended to get wider
+but not so much taller. Because programmers typically limit their line length (when written left-to-right) at fixed
+character limits such as 80, 100, or 120. Meanwhile, the length of a source file typically has no hard limits. Given
+recent trends, developers should instead limit their code vertically and expand it horizontally. This allows more code
+to be viewed at once and for their code to experience the benefits of larger monitors.
+
+# Recommended Solution
+
+<style>
+.vertical pre {
+    letter-spacing: 1em;
+}
+.vertical.noverflow pre {
+  overflow: visible;
+}
+</style>
+
+We propose adding support to the C++ preprocessor for vertical via a macro, `__vertical_processing`. For example:
+
+<div class="vertical">
+```cpp
+#define __vertical_processing
+} i
+  n
+ rt
+ e
+ ts
+ uq
+ ru
+ na
+  r
+ ne
+ u(
+ mi
+  n
+ *t
+
+ nn
+ uu
+ mm
+ ;)
+
+  {
+```
+</div>
+
+Here's a slightly more involved example:
+
+<div class="vertical">
+```cpp
+#define __vertical_processing
+}              i ###
+               n iii
+               t nnn
+                 ccc
+ )       s} wism lll
+ ;       t  hnta uuu
+         d  itdi ddd
+         :  l :n eee
+  )    s": vex:(
+       tSp e ;v) <<<
+       dur c( e  pva
+       :mi .s c{ rel
+   s0vv::n pt t  icg
+   t,eer t ud o  nto
+   d cca{l s: r  tor
+   : ..n}n h: <  >ri
+   : ebg"( _c i   >t
+   p nee,  bi n    h
+   l dgs   an t    m
+   u (i:   c  >    >
+   s )n:   k>
+   < ,(f   (> v
+   i  )o   x  e
+   n  ,l   )x c
+   t   d   ;) ;
+   >   _
+   (   l    {
+   )   e
+       f
+       t
+       (
+```
+</div>
+
+As one would expect, reading such code becomes perfectly natural after just a few minutes of looking at it.
+
+To examine a real world example, here is Erik Rigtorp SPSCQueue translated to vertical text [[rigtorp]]. Even at a
+glance it is much easier to read. Be sure to view this paper on an ultrawide wide monitor for the best viewing
+experience:
+
+<div class="vertical noverflow">
+```cpp
+#define __vertical_processing
+}}        # # #  p    # #  #p                                                                                                                             #  #        #             p #        # t n ######## ####### #  SOLAFIT cT fctioP C/
+ ;        e e i  r    e e  ir                                                                                                                             e  e        i             u e        i e a edieedii iiiiiii p *OUIUIMH oh uoonfe o*
+/ aaaa/// nAlAfTsi s/ nsl sfi R }  R }      R }           v }        R } tR t }   tR } v t }   v }                 Rt }             vt SS/ }     ~ }      n  l        f            eb n   st stf m m nefnneff nnnnnnn r /FTATTPE pe rp   r p
+/ llll/// dlsl  iv t/ dts tdv I    I        I             o          I   rI e     rI   o e     o                   Ie               oe PP/       S        d  s                     xl d   te te  p e dfnddf d ccccccc a  T BHNL  i  niuttm y
+  iiii    ileld*za a  iae aea G   rG  r} i sG  r} ias aa si  r}    iaG  ryG m  r syG  ei m  e si  rwn}    i} iaa s Gm  wn} w} iaa s im SS    s} wP    ass i se}  }   id } i/c} i/  pi i   rm rmd l s iidiii_e lllllll g  WOIOEIS ea ieshhi r
+n ggggcrA fo oeset tP ft  tft T   eT  e  f tT  e  ful su td  e     fuT  e_T p  e t_T  md p  m td  ere     f  fuu t Tp  re  h  fuu t dp CCn   t  hS    stt f l        fe   f/a  f/  lc f   up upe a p fneffn_f uuuuuuu m  AFLRSEO sb sseeis i
+a nnnnoel  c cfl_e ia  i si e O   tO  t d  dO  a n to st a   t } iw tO  tpO l  t apO  p  l  p a   tiw } ir  n tt asOl  iw ri n tt as l QQo   d piC    saa   o   secsa f  c  p c  : i:    Acl clf t a  ef  eh  ddddddd a  R ISSDF  o h , ss g
+m aaaahai  a aiot: cd  c tc_: R   uR  u i( :R  d e(ot eo tp  u   fr(oR  uuR a  u tuR  lp a  l tp  ut    fe( e(oo ttRa  t  el e(oo ttea uun   : olQ    ett   t   llaluci  a(Pa a(T  c     lta tai e c       a_ eeeeeee    EOT  ,T ov eo S i h
+e ssssedg  t tnt    d    d _  P   rP  r fd :P  I xn s r  io  r  r ir P  rsP t  r isP  au t  a iu  re(  r an xn   idPt  e( ae xn   idmt ee-   : peu    rii  as   ospoton  pcrc pchc i     l t  tn   e  RR  Rs_         o  .RYOF W re dfcoso t
+s ((((rIn  o oesc  ci  c :cc  _   n_  n fi p_  d ten_ tc cp  n  e(tec_  nh_ e  n ch_  cs e  c cs  nI&  e(de tenc c:_e  I& d  tenc c:pe uuc   a ( e    tcc  l_   teatone  aaei aaea t     ohe hee <    II  I_h <<<<<<< n    ,ROIA      ofon
+p kkkked   r rd_a  on  o :op  N    N     f tN  x Rxe[ (o _(     tweaoN   (N      _(N  eh    e _h   ds  tnIx Wxeo _:N   ds I( Wxeo _:l  eeo   l )(u    (__  l   as cs sd  cpvt cp p       ca  a d t r  GG  Gca tsnmcca c   I  RNR sc ttptf  (
+a CCCCnxt     (;p  ng  n hnp  O  rwO  s +f rO  _ etxr"wn a)  &  urIdnO  tPO <  t acO  (( <  ( a(  txl  uedt rtxn aiO<  xl dn rtxn aia<  (p   l ;fe  s raa  o=  l_{i_rt(  iaey iaqa S     2s< s<( y i  TT  Tps yteesat e   NWC CE uo ohywti c
+c aaaacCo  a a_ a  s   s as_  D  erD  t =  dD  . aRteCrs s   s  ridIsD  r D t  r soD  sP t  v sc  r_o  rxxW iWts ssDt  _o xe iWts ssct &cy   o  r(  t ess  c   l  t ee_  tcn_ tcuc P     ,_t _t_ p g  OO  Op_ pdwmtso      HOAL  bp  e,aws )
+e ccccya   l l_ c  tt  t rtl  I  aiI  a  < iI  s deRaait sn  l  ntxdtI  y&I y  y snI  t  y  ) so  u.t  ntCr trWt s_Iy  .t Cx trWt s_ey ooa   c  o)  a iss  as  o= y=sx_  yit+ yiei S      ay ay_ e t  RR  R_c ee>odsm     CEP UI sy d  ra
+  hhhh cc  l lh i  eo  e dei  S  dtS  t c  fS  t Iaednt  eo  o   eCx S  _&S p  _ esS  d& p  ; en  ess   Wai eir  enSp  ss at eir  en(p pnb   a  n   t nee  tt  c  _  pc  _t + _tut C     slp lpc n o  PP  Pap _x rdei     OTYPDS tr oSmerh 2
+r eeeetha  o oa t  x   x wxb  C  IeC  i a0 fC  o ddaI er re  t  nIa rC  evC e  e rtC  :& e    rs  ;t_  frct Itiw roCe  t_ cW Itiw roAe esl   t  t{  irtrr  od  as  r=rp   yo;  yey Q     tle lep a r  __  _tp tc yerc     NHRAI  ai  oo ee 0
+i LLLLrec  c cs y  pa  p ap_  A  dIA  c p) _A  r xIddoIe tx  s  udc=eA  m)A n  m t A  :v n    tt   o[  aihe detr ttAn  o[ hr detr ttrn rte   o  (   ceett  r:  tt =e  p  =_v  =_ _ u     don onp m p  NN  Nt_ re >ft>     NEIRNP ng sfdw r 2
+g iiiia_h  a a_ _  rv  r rrh  R  xdR  _ a  tR  e  dIxnda (c  _  lxh=aR  p R a  p (TR  f) a    (    rw  lteI xIei (hRa  rw ei xIei (hga a     r  )   _ir((  _:  od  sa(_    e/   n( e     :ca ca_ e    OO  Ora ap  >>      ERGTGR th otiiae 0
+t nnnnf e  t tc ;   o    e a  D  _xD  c c{  D  ( =xd lxd"se  [  lCe dD  lnD m  l"s D  o  m   "sT   er  se_d  dIt"srDm  er _t  dIt"srsm tSa   _  )   cnpsa  ,a  r: r.lhi  S>r/ 1<ec u     :am ami   {  DD  Dit it//        C HI O it ,wftnb
+o eeeefa   o op    si  s _sr     ._   a i  d   n   x+y_ITtp  r  pa_wI   ao  e  aTt&   rn e   Tt    (i  eI x =xdeTto e  (i  e =xdeTto e oPn   t      atril   l  _: eplaf  I f  ; ea e     vte tef T    II  Ibt t>//        TITCBV a   ayhdy E
+r SSSSinl  r rp    id  i did  s  l.b  s t  is  e 0=   .d dt  e  tc rdT  ceb    c dvb  wo      d&   nt  ;d=    xI dwb.  nt =I   xI dw&. rSd   r  {   seezi  cl  ,a stos_  ZSlN  1dp (     oe  e _ ,    SS  Sur s           IN UUI ln sr,o   r
+p iiiicdi  _ __    z   z ezw  i  olo  t y  fi  x ;==kclxm:   a  rh=ix   exo P  em:)o  ae P   m:v   ee   x = 0= dm:_o.  ee  d 0= dm:_&. =C    a      trteg  ao   l .rc_c  EIoe  )sacc     i_A _Ac      CC  Cti > ss        O HLTD  o ue uag i
+  zzzz  n  ;  a    ef  e sea  z  aoo  < _  fz  t    Pao u:{  d  ;e t *  (co ,  (u: o  rx ,   u:)   xI    r= ;==xu:co.  xI rx ;==xu:c.. (Qn   i      <p_on  pc  cl c;aao  _Zwe    coo     dal alo t    AA  Aeb   tt        NAOA E pt b,mtsr k
+  eeee we    [t    _a  _ t_r  e  dal  s ;   e  R  crala=si   I   _we=f  sel    vsinl  dc     si    td   =e      siol   td e      sio.  cuo   t      srcfo  aa  ao o tln  MEid  {ainn     _tl tln y    RR  R(u / dd         NLRND oi j e sa
+  )))) r     [t    tl  t rte  _  (d   i    =_  e  aedld ts   d    rI r  tp  t  )tso   <e t   tsn   Wx   =ar  cw=tsn A  Wx a=  cw=tsn.A oen   s      tea(f  ct  pc u ols  A_ns   ttss     t_o _os p    DD  Dnt / ::        W D O  rc earron R
+       is    nr     s    u _  t  s(e  z     t  a  pad (r _   x   =idro  dt  y  ; _e   Pp y    _o   r     de  ar  _str  r  d=  ar  _sar nu-   <      dtsS(  io  aa n rot  XMg     ytt     <lc lct e         oe   ::        IAEPT" te cngect i
+  ssss ti    oi    ke  k cki     tsm  e   rw   d  adipsebn       =txen  :(  p   bcx   >t p   bce   i+   rIa  piwbctrg  i+ I   piwbctrg sem   A      :_tPS  tr  ct t _ce   A o   l)      dte2 e2e n        [d  s ha        TCRU A i  tdesie g
+  itit ez    _b    P   C tCn  c  dtp  _   ers  I  cInotaeo   +    eCat  :s  e   eoc   (( e   eox   t    edd  atreorys  t  dr  atreorgs t o   l      :c<SP  y_  io   .ax  -Xsn   e,As    eya> a,x a        [i  t al        HTSRLS oa   ,tad t
+  zdzd Ie    uu    as  a iat  a  :dt  t   aii  d  idgpdd t       rIad(  ft sn    pe   vssn    pc   ek   axI  cei nu_>  ek xe  cei nus>  &v   l      pacCS  _t  tr - atp    ie   a li    cps  s p m        ns  d rl         I PI  nn tt rt, o
+  e:e: d     nt    dh  c vce  p  ::y  >   dtz  x  tx](:Inh   k   edcI)  od ta   cyp   )tta   cye   IP   d_d  iItcsce   IP _a  iItcsc)  S)a   o      tshQC   r  y_   ler  2-z    salz    let  ttr e        oc  : do        TOBOMI sd oopie  r
+  _:_: xi    ie    da  h ehr  a  m:(  (   Iee  ,  y .):dor   P   axhd   r: dm   o_t   )ddm   o_p   da   I.x  tdeottm   da .d  tdeott   P b   c      rtauQ  +a  _t 2 l_)    es   tloe   stn<   y)          da  : wc        HNESIS      ucdf p
+  tata Cn    q)    ir  e _ef  c  em)  d   dI(     _+~ mxto   a   d_exn  w: :e   pc(   ;::e   pct   xd   dlC  yxInrip   xd lI  yxInrin  S=l   a      d<reu   i   r   oa   *2_l    lc_   iya   :p  A        ir  e aa        E  ET" ot tpbt r
+   t t a     u     ni  L iLe  i  me   i   xd)  s  ) Tae_hw   d   I.__o  ai :    yos    ::    yo(   ,d   xoa  _ dsubl   ,d od  _ dsubo  C e   t      ic ue  2t  +a * ct&    ta   ooat   zpm    e& l        sd  n rt         OL E, fh helide <
+  woro co    e&    gn  i nir  t  omc  f   _x   t   1(fm.r_   d   dl).e  rs i=    nt    ii=    ns    i   Cac  )+xtcla    i ax  )+xtcle  Qd    o      fh*eu   s   i   a_&  k* c   nct    eee   sn& l        c)  a eo        SFIAD   i eriooe e
+  rmem hr    _&     g  n tne  y  roo  f   ._c  d  {;)tolod   i   xo lx  d_ s    csd    ss    cst   sn   adh    _rtec   sn dC    _rtex  ue    r      fa><e  *<  2t k tl   P  k   eaoc   _(    ta  o        a   b _r        O AN W ts  msnc  r
+  iiai ed    a     =   e een  (  yrn  )   l.o  :    ;erowe   n   )a{oc  <n _t   ot:    __t   otd   tg   c(e  {1.ui<e   tg (a  {1.ui<c  el    >      _r(T<   A   s P eed  ak      tra   tsA   dmd c        r   l d         FCBDTI h  fih,uo i
+  tcdc _e    d_     b  S rSc  )  _ys  ;   oln  :     rya s   g    d ae  Po cy   nr:    ncy   nr:   d]   hs_   ;lcbT(   d] sc   ;lcbTe  ue    :      t &>T  kl  *< a _ae  dP e   eo p   {tl   :ee a        d   e e         TOL OT ep ot, mf k
+  e<I<  r    d_    (e  i fie     o_t      aos  m      _ddt   ]   {( dp  >t op   sui    oop   su:   :)   et)    otl,A   :) th    otl,p  et    :      >*r)>  Pl   A d asf  da l   lr&a   }dl   : f t        ]   _ s         WNEN H  e l  ie  @
+  Isds i     rh    kt  z ez_  c  ro       dat  e     fo(er   ;    s (t  (h ne   tcs    tne   tci   :    _d     aie r   :  de    aie t   e    d      (>e )  ao  kl d tti  id e   e_ac   ):o   f=i o        ]   i t         AT OTO Sr lpdnnc r
+  dixi st    ea    Cw  e res  o  drn      (d   m     rrssu        t s   vr sn   rt_    hsn   rts   mT   ):{    db<Ag   mT :_    db<A(  &;    e      k(a>   dc  Pl i _<n  nd m   m(li   ):c   a n r            f r         RRFNHU om oeicth i
+  xzCz  o    ss    ae    e i  n  edo      s(n  o     odttc        d t{  )o ta   uin    rta   ui_   e(    :     (lTrs   e( :)    (lTr   )     a      C&d==  da  ao n lAe  gi e   ealt   >d2   lve              , u         EAOIET fi wrslaa g
+  Ceae u     s_    ce  = n=z  s  ree      tso  r     nedrt        : d   )w rm   cbo    orm   cbn   ms   {m     se,g    ms m     se,g         l      awI =  it  dc g eld  ;n n   nloy   >e:   sod =              c          CRN   ts istutr t
+  a_c_ sa    ]c    hn    c e  t  _rx      dte  y     tr:ui        : :   ;_ ue   tlt    wue   tlo   ot    e     t  s&   ot e{    t  s   =     l      crd3   no  da ; al(   g t   tlc,    c:   ei(              s t         OT FWW ws nordig o
+  ctht ev    ]p    e   6 e       a_c      :dx  _     (_:cb        m :    c c    ieh    _c    iet   rd    m     dwA &   rd m     dwA          o      hix k  gr  it   so_   )      oa    :lv   _d_ s            t i         R,ARAA ai gniioe r
+  h>e> do    ;p    Ls  4 _    n  cae      ::c  o     )amtl        e m    o ts   b<r    cts   b<h   y:    o     :ir&.   y: o     :ir&   d     c      et_*C  )>  no   tc_          ct     va   t>_ t            d v           NIRR ro  sbnn, p
+  e _   i     _    il  ; s    o  qcp      m:e  r      ceie        m e    n it   lTo    oit   lTr   _:    r     :tg&.   _: r     :tg&   e     a      Le) a  ;:  gr   (ac   {      ao    sal   y c d            : e         TTYNRR en c ug   .
+  _r w td     a    no    i    e  uqt      emp  d     hqmb<        o m    s bd   e>w    nbd   e>o   of    y     mhs..   of y     mhs.   l     t      iI kc   :  )>   ctp          tr    tlu   p p :            : _         HO GAA .  ott ft s
+   e=r o      t    et    z    x  iu       met  e     auolT        r o    t l:   ":_    sl:   ":w   ro    _     e  .a   ro _     e  .   e     e      nd-Ch   a  ;:   aop          o     d<e   e p :            i i         ERCENN  n noewio e
+  =a i  f     t    Ss    e    c  ri{      om   r     sire>        y r    r e:   ):c    te:   ):_   dr    o     mA&.r   dr o     mA&.   t     (      ex ae   l   :   pr_          r=    :A_     _ a            s n          TLMTT  o d ,il  >
+   d0t ra     r    i_    ;    e  er       ro{  _      ry":        _ y    u <e   ;vo    r<e   ;vc   ew    r     or&>g   ew r     or&>   e    ca      S_ cL   l   a   a>l          )     :lt   { l l            _ t         U AEIY  t iw tea
+  0I;e el     i    z          p  )e       yr   r     re_):        o _    c Tn    ap    uTn    ao   ra    d     rg.:s   ra d     rg.:   ;    al      i) hi   o   l   c:i           A    tly   } i l            * e         SOINE   i thshsn
+  ;d I ds     b    ea         t  ;)       _y   e     e)o;v        r o    t ,a    ly    c,a    lp   _r    e     ys.:)   _r e     ys.:        pl      z  en   c   l   i:b          {l    rop   ; b o            _ r         ERMTSO  c iouo y
+   x d ue     u     n                     o_   l     t r a        d r    i  b    u_    t b    uy   rd    r     _&.v    rd r     _&.v        ao      e> Le   a   o   tv_           l    uce     _ c            c f           ,. F  e ombu(
+   _ x c      t    -d         {   =       ro   e     u!d l        e d    b Pl    ec    iPl    e_   e<    _     o&>an   e< _     o&>a        cc      )= iS   t   c   yav           o    e2,     v a            o e         OO  O     n lttp
+     _ es     e                   =       dr   a     r=e u        r e    l  e    ,o    b e    ,c   lA    a     r.:lo   lA a     r.:l        ia      )  ni   e   a   _lo           c    _       o t            n r         RTDIFA  s sti he
+   =    h     (    1a         r           ed   s     n r e        _ r    e &_     n    l&_     o   er    c     d.:ue   er c     d.:u        tt      ;  ez   (   t    ui           a    t&      i o            s e          HAN N  h :hcler
+     = ta     n    )d         e           re   e     er_ ,        a _    < &i     s    e&i     n   ag    q     e.vex   ag q     e.ve        yo         Se       e   +ed           t    y>      d r            t n         OEM MY  a  eei s
+   {   hr     o     j         t           _r   )     der          c r    T >f     t    <>f     s   ss    u     r"a)c   ss u     r"a)        _r         i,       (    )_           o    p(      _ <            r c         TRANE   l   nm"o
+   0 { ei     _    /a         u           a_   ;      ae          q e    , :<     r    T:<     t   e>    i     _)l e   e> i     _)l          _         z            2 t           r    e)      t T            u e         HWGORK  l  SsiSn
+   } 0  n     u     c         r           ca         adl          u l      :      u    ,:      r   )(    r     r;u{p   )( r     r;u{        +,         e"            {)           (     .      ) >            c _         EIE CI     oeto
+   ; } ag     n    se         n           qc          Ia          i a    P v      c     v      u   ;a    e     e e t   ;a e     e e                    ,"           *             )    {a        >            t s         RSSEHN  b  f,afo
+     ; m      i    in                     uq         ndx          r x      a      t    Pa      c    r    )     l , (    r )     l ,         2s          )                         )    }l                     i i          E VAD  e  t ttb
+       o      q    zt         c           iu         oxe          e e    & l      i     l      t    g    ;     a        g ;     a            l         ";           k                  ;l        c            b z         D,OEN,     waiwt
+       u      u    e          a           ri         n d          ) d    & u      b    &u      i    s          x        s       x           *o         "            P                   o        l            l e         E RNT   i  anoaa
+       n      e    oa         p           er         -&)          ; )    > e      l    &e      b    )          e        )       e            t         )            a                   c        a            e           AA TAE  n  rdnri
+       t      _    fl         a           )e         n&;            ;    : >      e    >>      l    .          d        .       d           ks         ;            d                   a        s                        LRO BX  c  e/ en
+              a    (l         c           ;)         u                   : :      <    ::      e    .          )        .       )           P_                      d                   t        s                        IITSIP  l   ot"i
+       o      d    To         i                      l                   v :      T    ::      <    .          ;        .       ;           a,                      i                   e                                 NSHHLR  u  irh)n
+       f      d    )c         t            -         l                   a t      >    vt      T    )                   )                   d                       n                   _        S                        GIEAIE  d  s e,g
+              r     a         y                      p                   l y      :    ay      >    ;                   ;                   d                       g                   a        P                        SNRLTS  e   s
+       c      e    +t         _                      t                   u p      :    lp      :                                            i                       )                   t        S                         G LYS  d   erta
+       a      s     i                                r                   e e      v    ue      :                                            n                       ;                   _        C                        I   ,       lio
+       c      s    1o         -                      "                   ) >      a    e>      v                                            g                                           l        Q                        NF T O  i   lg c
+       h      )    ;n                                )                            l    )       a                                            )                                           e        u                         R H R  n    hdo
+       e            s         1                      ;                   {        u            l                                            ;                                           a        e                        TO E         tep
+                              ;                                                   e    {       u                                                                                        s        u                        HM      a    say
+                                                                                  )            e                                                                                        t        e                        E,      l     l
+                              }                                                                )                                                                                        (                                         l
+                                                                                  {                                                                                                              {
+                                                                                               {
+```
+</div>
+
+# Design
+
+Unfortunately, because C++ by default interprets text horizontally the directive used to change processing must be
+horizontal as well. We recommend implementations facilitate options and command-line parameters for this in addition to
+the standard-sanctioned approach.
+
+# Implementability
+
+Because a C++ compiler must begin to interpret text horizontally, switching to vertical mode must be done on the fly
+once `#define __vertical_processing` is detected. None the less, this is easily handled in any lexer.
+
+# Switching out of vertical processing mode
+
+The syntax begs the question, what about `#undef __vertical_processing`? We defer this question to another paper.
+
+# Proposed Wording
+
+<style>
+.mono {
+  font-family: Menlo, Consolas, "DejaVu Sans Mono", Monaco, monospace;
+}
+h3.mono {
+  font-size: 20px;
+}
+div.insall {
+  background: #cfc !important;
+  color: #000 !important;
+  padding: 5px;
+}
+div.delall {
+  background: #fcc !important;
+  color: #000 !important;
+  padding: 5px;
+}
+div.insall h3, div.insall h4,
+div.delall h3, div.delall h4 {
+  color: #000 !important;
+}
+div.insall pre {
+  border: 10px solid #cfc !important;
+  background: #0d0d0d !important;
+}
+div.delall pre {
+  border: 10px solid #fcc !important;
+  background: #0d0d0d !important;
+}
+@media (prefers-color-scheme: dark) {
+  div.insall {
+    background: #cfc !important;
+    color: #000 !important;
+  }
+  div.delall {
+    background: #fcc !important;
+    color: #000 !important;
+    padding: 5px;
+  }
+  div.insall h3, div.insall h4,
+  div.delall h3, div.delall h4 {
+    color: #000 !important;
+  }
+  div.insall pre {
+    border: 10px solid #cfc !important;
+    background: #0d0d0d !important;
+  }
+  div.delall pre {
+    border: 10px solid #fcc !important;
+    background: #0d0d0d !important;
+  }
+}
+.indent {
+  padding-left: 20px;
+}
+</style>
+
+Proposed wording relative to [[!N4950]]:
+
+
+
+<pre class="biblio">
+{
+    "rigtorp": {
+        "title": "Erik Rigtorp's SPSCQueue",
+        "href": "https://github.com/rigtorp/SPSCQueue"
+    }
+}
+</pre>
