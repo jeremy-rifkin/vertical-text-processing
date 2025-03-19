@@ -58,11 +58,17 @@ character limits such as 80, 100, or 120. Meanwhile, the length of a source file
 recent trends, developers should instead limit their code vertically and expand it horizontally. This allows more code
 to be viewed at once and for their code to experience the benefits of larger monitors.
 
+An additional motivation lies in human nature, our vertical field of view is larger then our horizontal field of view. This
+means that by supporting vertical text we can read more characters before we need to move our head reducing excessive muscle movement
+during programming.
+
+<img src="./humanFOV.png" alt="Human vertical field of view (130 degrees) vs horizontal field of view (120 degrees)">
+
 # Recommended Solution
 
 <style>
 .vertical pre {
-    letter-spacing: 1em;
+    letter-spacing: 1em;`
 }
 .vertical.noverflow pre {
   overflow: visible;
@@ -81,7 +87,7 @@ We propose adding support to the C++ preprocessor for vertical via a macro, `__v
  ts
  uq
  ru
- na
+ na`
   r
  ne
  u(
@@ -242,8 +248,39 @@ once `#define __vertical_processing` is detected. None the less, this is easily 
 
 # Switching out of vertical processing mode
 
-The syntax begs the question, what about `#undef __vertical_processing`? We defer this question to another paper.
+The syntax begs the question, what about `#undef __vertical_processing`? The solution is simply elegant once the preprocessor / lexer encounters `#undef __vertical_processing` we imediatly switch back to the legacy mode of processing.
 
+an example can be seen below:
+
+<div class="vertical">
+```cpp
+#define __vertical_processing
+                            i
+                            n
+                            t
+
+                            s
+                            q
+                            u
+                            a
+                            r
+                            e
+                            (
+                            i
+                            n
+                            t
+
+                            n
+                            u
+                            m
+                            )
+
+                            {
+#undef __vertical_processing
+return num * num;
+}
+```
+</div>
 # Proposed Wording
 
 <style>
