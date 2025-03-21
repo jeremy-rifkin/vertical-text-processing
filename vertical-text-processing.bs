@@ -68,7 +68,7 @@ during programming.
 
 <style>
 .vertical pre {
-    letter-spacing: 1em;`
+    letter-spacing: 1em;
 }
 .vertical.noverflow pre {
   overflow: visible;
@@ -87,7 +87,7 @@ We propose adding support to the C++ preprocessor for vertical via a macro, `__v
  ts
  uq
  ru
- na`
+ na
   r
  ne
  u(
