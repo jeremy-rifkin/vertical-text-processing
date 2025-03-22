@@ -123,11 +123,10 @@ recent trends and accepted practices with regards to line length limitations, it
 code vertically with vertical line limitations so that code may benefit from today's wide screen monitors, as well as
 future wider screen monitors.
 
-Fig A:
+Fig A: An ultra-widescreen monitor, circa 2025
 
 <div>
     <img src="./ultrawide.jpg" alt="An ultra-widescreen monitor, circa 2025">
-    <center>An ultra-widescreen monitor, circa 2025</center>
     <center><i>Image Source: [RTINGS.com](https://www.rtings.com/monitor/reviews/best/ultrawide-gaming)</i></center>
 </div>
 
@@ -138,25 +137,24 @@ desks and would lead to unergonomic craning of the neck.
 As such, by taking advantage of vertical text on ultrawide monitors, we can read more characters before we need to move
 our head reducing excessive muscle movement during programming.
 
-Fig B:
+Fig B: Human eye field of view
 
 <div class="sidebyside">
     <div>
         <img src="./human_fov_horizontal.png" alt="Human horizontal field of view (120 degrees binocular and about 200 degrees monocular)">
-        <center>Human horizontal field of view (120 degrees binocular and about 200 degrees monocular)</center>
-        <center><i>Source: [Wikipedia](https://en.wikipedia.org/wiki/Field_of_view#/media/File:FOV_both_eyes.svg), contributed by Zyxwv99</i></center>
+        <center>Human horizontal field of view</center>
     </div>
     <div>
         <img src="./human_fov_vertical.png" alt="Human vertical field of view (about 130 degrees)">
-        <center>Human vertical field of view (about 130 degrees)</center>
-        <center><i>Source: [Wikipedia](https://en.wikipedia.org/wiki/Field_of_view#/media/File:Vertical_FOV.svg), contributed by Zyxwv99</i></center>
+        <center>Human vertical field of view</center>
     </div>
 </div>
+<center><i>Source: [Wikipedia](https://en.wikipedia.org/wiki/Field_of_view#/media/File:FOV_both_eyes.svg) and [Wikipedia](https://en.wikipedia.org/wiki/Field_of_view#/media/File:Vertical_FOV.svg), contributed by Zyxwv99</i></center>
 
 Humans are not alone in this regard, many animals have much wider horizontal field of view compared to vertical. For
 example, the Tyrannosaurus rex as with other tyrannosaurids and theropods feature an even greater total field of view:
 
-Fig C:
+Fig C: Field of view for Tyrannosaurus and Tarbosaurus
 
 <div>
     <img src="./tfov.jpg" alt="Wide field of view for Tyrannosaurus">
@@ -166,10 +164,9 @@ Fig C:
 Sacrificing narrower binocular field of view for more total field of view is a trait attributed to their predatory
 nature and evidenced by the eye placement in the skulls of these dinosaurs:
 
-Fig D:
+Fig D: A Tyrannosaurus rex pictured making the famous "pogchamp" face
 <div>
 <center><img src="./trex.png" alt="Trex poggers" style="max-height: 500px; width: auto;"></center>
-<center>A Tyrannosaurus rex pictured making the famous "pogchamp" face</center>
 <center><i>Source: [[binocularvisionintheropods inline]]</i></center>
 </div>
 
