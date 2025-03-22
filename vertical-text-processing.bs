@@ -8,7 +8,7 @@ Status: D
 Date: 2025-04-01
 Editor: Jeremy Rifkin, jeremy@rifkin.dev
 Editor: Levi de koning
-Abstract: Many writing systems can be written vertically yet C++ offers no standard support for such text. This paper outlines a proposal to rectify this situation.
+Abstract: While canonically in the west text is written horizontally, many writing systems can be written vertically. Yet, C++ offers no standard support for such text. This paper outlines a proposal to rectify the situation.
 Markup Shorthands: markdown on
 ED: https://jeremy-rifkin.github.io/proposals/drafts/cpp/vertical-text-processing-1.html
 !Source: [https://github.com/jeremy-rifkin/proposals/blob/main/cpp/vertical-text-processing.bs](https://github.com/jeremy-rifkin/proposals/blob/main/cpp/vertical-text-processing.bs)
@@ -40,42 +40,160 @@ tbody tr:nth-child(even) {
 }
 </style>
 
+<style>
+img {
+    width: 100%;
+    height: 100%;
+}
+.sidebyside {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    background: white;
+    color: black;
+}
+.sidebyside > div {
+    width: 50%;
+}
+</style>
+
 # Introduction
 
 Many writing systems, notably a handful of East Asian scripts, may be oriented either horizontally or vertically. While
-code is generally written left to write and top to bottom, there is no inherent reason this must be the case.
+code is generally written left to write and top to bottom, there is no inherent reason this must be the case. In fact,
+we will show that vertical writing of code has numerous benefits over traditional horizontal code.
 
-WG21, as an international standardization group, strives to accommodate a diverse range of applications, uses, and
-environments. As such, WG21 should also strive to accommodate diverse typographic conventions even when other languages
-do not.
+In this paper we propose support for vertical text in C++:
+
+<div class="vertical">
+```cpp
+#define __vertical_processing
+}     it
+      ne
+      tm
+       p
+ r} ftsl
+ e  oyua
+ t  rpmt
+ u  (e(e
+ r scns<
+ n uoatt
+   mnmdy
+ s  se:p
+ u +t :e
+ m = ssn
+ ;  atpa
+   iudam
+   tt:ne
+   eo:<
+   m&rTT
+   ; e,,
+    im
+    toEs
+    ev>t
+    me d
+     _a:
+    :cr:
+     ors
+    an)i
+    rs z
+    rt{e
+    )_ _
+     t t
+    {<
+     T E
+     > >
+
+     s
+     u
+     m
+     {
+     }
+     ;
+```
+</div>
 
 # Motivation
 
 In addition to accessibility and friendliness for natural writing styles of all cultures, vertical writing of code
-allows for better use of computer monitors. Over the last few decades, monitors have definitively trended to get wider
-but not so much taller. Because programmers typically limit their line length (when written left-to-right) at fixed
+allows for better use of modern computer monitors. Over the last few decades, monitors have definitively trended to get
+wider but not so much taller (exhibit a, exhibit b). We observe that programmers typically limit their line length (when written left-to-right) at fixed
 character limits such as 80, 100, or 120. Meanwhile, the length of a source file typically has no hard limits. Given
-recent trends, developers should instead limit their code vertically and expand it horizontally. This allows more code
-to be viewed at once and for their code to experience the benefits of larger monitors.
+recent trends and accepted practices with regards to line length limitations, it's clearly much more beneficial to write
+code vertically with vertical line limitations so that code may benefit from today's wide screen monitors, as well as
+future wider screen monitors.
 
-An additional motivation lies in human nature, our vertical field of view is larger then our horizontal field of view. This
-means that by supporting vertical text we can read more characters before we need to move our head reducing excessive muscle movement
-during programming.
+Fig A:
 
-<img src="./humanFOV.png" alt="Human vertical field of view (130 degrees) vs horizontal field of view (120 degrees)">
+<div>
+    <img src="./ultrawide.jpg" alt="An ultra-widescreen monitor, circa 2025">
+    <center>An ultra-widescreen monitor, circa 2025</center>
+    <center><i>Image Source: [RTINGS.com](https://www.rtings.com/monitor/reviews/best/ultrawide-gaming)</i></center>
+</div>
+
+Because humans have a much narrower vertical field of view compared to horizontal, it's not a satisfactory solution to
+rotate monitors vertically. Additionally, with today's ultra-wide monitors, vertical orientation would not work on most
+desks and would lead to unergonomic craning of the neck.
+
+As such, by taking advantage of vertical text on ultrawide monitors, we can read more characters before we need to move
+our head reducing excessive muscle movement during programming.
+
+Fig B:
+
+<div class="sidebyside">
+    <div>
+        <img src="./human_fov_horizontal.png" alt="Human horizontal field of view (120 degrees binocular and about 200 degrees monocular)">
+        <center>Human horizontal field of view (120 degrees binocular and about 200 degrees monocular)</center>
+        <center><i>Source: [Wikipedia](https://en.wikipedia.org/wiki/Field_of_view#/media/File:FOV_both_eyes.svg), contributed by Zyxwv99</i></center>
+    </div>
+    <div>
+        <img src="./human_fov_vertical.png" alt="Human vertical field of view (about 130 degrees)">
+        <center>Human vertical field of view (about 130 degrees)</center>
+        <center><i>Source: [Wikipedia](https://en.wikipedia.org/wiki/Field_of_view#/media/File:Vertical_FOV.svg), contributed by Zyxwv99</i></center>
+    </div>
+</div>
+
+Humans are not alone in this regard, many animals have much wider horizontal field of view compared to vertical. For
+example, the Tyrannosaurus rex as with other tyrannosaurids and theropods feature an even greater total field of view:
+
+Fig C:
+
+<div>
+    <img src="./tfov.jpg" alt="Wide field of view for Tyrannosaurus">
+    <center><i>Source: [Edaphosaurus](https://twitter.com/Edaphosaurus/status/1582411070517280775)</i></center>
+</div>
+
+Sacrificing narrower binocular field of view for more total field of view is a trait attributed to their predatory
+nature and evidenced by the eye placement in the skulls of these dinosaurs:
+
+Fig D:
+<div>
+<center><img src="./trex.png" alt="Trex poggers" style="max-height: 500px; width: auto;"></center>
+<center>A Tyrannosaurus rex pictured making the famous "pogchamp" face</center>
+<center><i>Source: [[binocularvisionintheropods inline]]</i></center>
+</div>
+
+Note: Despite possibly being fluffy and covered by feathers, do not pet these animals.
+
+As such, we believe the Tyrannosaurus rex is uniquely well-equipped for modern wide-screen monitors, and would probably
+program quite effectively on such devices. We are currently seeking funding for exploring this hypothesis.
+
+Supplementary fig: [[#annex-a-fig-e]]
 
 # Recommended Solution
 
 <style>
 .vertical pre {
-    letter-spacing: 1em;
+  line-height: 1.5;
+  letter-spacing: 0.5em;
 }
 .vertical.noverflow pre {
   overflow: visible;
 }
 </style>
 
-We propose adding support to the C++ preprocessor for vertical via a macro, `__vertical_processing`. For example:
+We propose adding support to the C++ preprocessor for vertical text via the preprocessor definition,
+`__vertical_processing`. For example:
 
 <div class="vertical">
 ```cpp
@@ -145,8 +263,9 @@ Here's a slightly more involved example:
 
 As one would expect, reading such code becomes perfectly natural after just a few minutes of looking at it.
 
-To examine a real world example, here is Erik Rigtorp SPSCQueue translated to vertical text [[rigtorp]]. Even at a
-glance it is much easier to read. Be sure to view this paper on an ultrawide wide monitor for the best viewing
+To examine a real world example, here is Erik Rigtorp's SPSCQueue translated to vertical text [[rigtorp]]. Even at a
+glance it is much easier to read (not that the code is hard to read when laid out traditionally, it is in fact quite
+nicely written code, made even easier by this paper). Be sure to use an ultrawide wide monitor for the best viewing
 experience:
 
 <div class="vertical noverflow">
@@ -235,22 +354,39 @@ p iiiicdi  _ __    z   z ezw  i  olo  t y  fi  x ;==kclxm:   a  rh=ix   exo P  e
 ```
 </div>
 
+# Why This Isn't a Tooling Problem
+
+One could imagine tooling support for vertical code where the tooling saves vertically written text to disk equivalently
+to if it were written horizontally. Naturally, there are no rules stating that characters on disk are to be laid out
+horizontally by a text editor. However, this convention has been so deeply ingrained into software since the beginning
+of the universe (January 1, 1970), that it is de-facto a law of computer software.
+
+We find any editor tooling solutions undesirable for a couple of important reasons.
+
+Firstly, despite decades of innovation in the text editor domain, no tooling supports this obvious feature. As such, we
+don't anticipate any native tooling support any time soon. Naturally, even if some tools added support, there will
+always be software lagging behind in support. We view this as imputus for WG21 to pick up the torch and lead industry
+adoption.
+
+Additionally, this opens the door for code to be laid out in radically different ways for various users depending on how
+they are reading the code. This is the same problem encountered by "hard tabs," which are rendered by default as 4
+characters wide on good editors and 8 characters wide on some other editors (that's as many characters as bits in a
+`char`!).
+
 # Design
 
-Unfortunately, because C++ by default interprets text horizontally the directive used to change processing must be
+Unfortunately, because the decision was made by Bjarne Stroustrup to have C++ compilers interpret source code linearly
+in a file, thus corresponding to horizontally as presented by editors, the directive used to change processing must be
 horizontal as well. We recommend implementations facilitate options and command-line parameters for this in addition to
 the standard-sanctioned approach.
 
-# Implementability
-
-Because a C++ compiler must begin to interpret text horizontally, switching to vertical mode must be done on the fly
-once `#define __vertical_processing` is detected. None the less, this is easily handled in any lexer.
-
 # Switching out of vertical processing mode
 
-The syntax begs the question, what about `#undef __vertical_processing`? The solution is simply elegant once the preprocessor / lexer encounters `#undef __vertical_processing` we imediatly switch back to the legacy mode of processing.
+The syntax begs the question, what about `#undef __vertical_processing`? The solution is simply elegant once the
+preprocessor / lexer encounters `#undef __vertical_processing` we imediatly switch back to the legacy mode of
+processing.
 
-an example can be seen below:
+For example:
 
 <div class="vertical">
 ```cpp
@@ -281,6 +417,88 @@ return num * num;
 }
 ```
 </div>
+
+# Implementability
+
+The transformation between traditional horizontal and vertical text is firmly rooted in mathematics, which lends this to
+a straightforward implementation by adding a new translation phase between phases 1 and 2. In translation phase 1.5, a
+compiler may trivially identify vertical processing sections within a file and apply the following transformation:
+
+<style>
+svg.math {
+    background: transparent;
+}
+</style>
+
+<!--
+https://viereck.ch/latex-to-svg/
+B_{ij}
+\;=\;
+\sum_{p=1}^{M}
+\sum_{q=1}^{N}
+A^T_{qp}\,
+\frac{1}{2\pi i}\oint_{|z|=1}\!z^{\,p-\bigl(M+1-j\bigr)-1}\,dz
+\;
+\frac{1}{2\pi i}\oint_{|w|=1}\!w^{\,q - i -1}\,dw
+-->
+<center>
+<svg class="math" xmlns="http://www.w3.org/2000/svg" width="574.928px" height="55.352px" viewBox="0 -1733 31765 3058.1" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true">
+    <defs><path id="MJX-27-TEX-I-1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path><path id="MJX-27-TEX-I-1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path><path id="MJX-27-TEX-I-1D457" d="M297 596Q297 627 318 644T361 661Q378 661 389 651T403 623Q403 595 384 576T340 557Q322 557 310 567T297 596ZM288 376Q288 405 262 405Q240 405 220 393T185 362T161 325T144 293L137 279Q135 278 121 278H107Q101 284 101 286T105 299Q126 348 164 391T252 441Q253 441 260 441T272 442Q296 441 316 432Q341 418 354 401T367 348V332L318 133Q267 -67 264 -75Q246 -125 194 -164T75 -204Q25 -204 7 -183T-12 -137Q-12 -110 7 -91T53 -71Q70 -71 82 -81T95 -112Q95 -148 63 -167Q69 -168 77 -168Q111 -168 139 -140T182 -74L193 -32Q204 11 219 72T251 197T278 308T289 365Q289 372 288 376Z"></path><path id="MJX-27-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-27-TEX-LO-2211" d="M60 948Q63 950 665 950H1267L1325 815Q1384 677 1388 669H1348L1341 683Q1320 724 1285 761Q1235 809 1174 838T1033 881T882 898T699 902H574H543H251L259 891Q722 258 724 252Q725 250 724 246Q721 243 460 -56L196 -356Q196 -357 407 -357Q459 -357 548 -357T676 -358Q812 -358 896 -353T1063 -332T1204 -283T1307 -196Q1328 -170 1348 -124H1388Q1388 -125 1381 -145T1356 -210T1325 -294L1267 -449L666 -450Q64 -450 61 -448Q55 -446 55 -439Q55 -437 57 -433L590 177Q590 178 557 222T452 366T322 544L56 909L55 924Q55 945 60 948Z"></path><path id="MJX-27-TEX-I-1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path><path id="MJX-27-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-27-TEX-I-1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path><path id="MJX-27-TEX-I-1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path><path id="MJX-27-TEX-I-1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path><path id="MJX-27-TEX-I-1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path><path id="MJX-27-TEX-I-1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path><path id="MJX-27-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path id="MJX-27-TEX-I-1D70B" d="M132 -11Q98 -11 98 22V33L111 61Q186 219 220 334L228 358H196Q158 358 142 355T103 336Q92 329 81 318T62 297T53 285Q51 284 38 284Q19 284 19 294Q19 300 38 329T93 391T164 429Q171 431 389 431Q549 431 553 430Q573 423 573 402Q573 371 541 360Q535 358 472 358H408L405 341Q393 269 393 222Q393 170 402 129T421 65T431 37Q431 20 417 5T381 -10Q370 -10 363 -7T347 17T331 77Q330 86 330 121Q330 170 339 226T357 318T367 358H269L268 354Q268 351 249 275T206 114T175 17Q164 -11 132 -11Z"></path><path id="MJX-27-TEX-LO-222E" d="M114 -798Q132 -824 165 -824H167Q195 -824 223 -764T275 -600T320 -391T362 -164Q365 -143 367 -133Q382 -52 390 2Q314 40 276 99Q230 167 230 249Q230 363 305 436T484 519H494L503 563Q587 939 632 1087T727 1298Q774 1360 828 1360Q884 1360 912 1325T944 1245Q944 1220 932 1205T909 1186T887 1183Q866 1183 849 1198T832 1239Q832 1287 885 1296L882 1300Q879 1303 874 1307T866 1313Q851 1323 833 1323Q766 1323 688 929Q662 811 610 496Q770 416 770 249Q770 147 701 68T516 -21H506L497 -65Q407 -464 357 -623T237 -837Q203 -862 165 -862Q125 -862 92 -831T55 -746Q55 -711 74 -698T112 -685Q133 -685 150 -700T167 -741Q167 -789 114 -798ZM480 478Q460 478 435 470T380 444T327 401T287 335T271 249Q271 124 375 56L397 43L431 223L485 478H480ZM519 20Q545 20 578 33T647 72T706 144T730 249Q730 383 603 455Q603 454 597 421T582 343T569 276Q516 22 515 20H519Z"></path><path id="MJX-27-TEX-N-7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path><path id="MJX-27-TEX-I-1D467" d="M347 338Q337 338 294 349T231 360Q211 360 197 356T174 346T162 335T155 324L153 320Q150 317 138 317Q117 317 117 325Q117 330 120 339Q133 378 163 406T229 440Q241 442 246 442Q271 442 291 425T329 392T367 375Q389 375 411 408T434 441Q435 442 449 442H462Q468 436 468 434Q468 430 463 420T449 399T432 377T418 358L411 349Q368 298 275 214T160 106L148 94L163 93Q185 93 227 82T290 71Q328 71 360 90T402 140Q406 149 409 151T424 153Q443 153 443 143Q443 138 442 134Q425 72 376 31T278 -11Q252 -11 232 6T193 40T155 57Q111 57 76 -3Q70 -11 59 -11H54H41Q35 -5 35 -2Q35 13 93 84Q132 129 225 214T340 322Q352 338 347 338Z"></path><path id="MJX-27-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path id="MJX-27-TEX-SO-28" d="M152 251Q152 646 388 850H416Q422 844 422 841Q422 837 403 816T357 753T302 649T255 482T236 250Q236 124 255 19T301 -147T356 -251T403 -315T422 -340Q422 -343 416 -349H388Q359 -325 332 -296T271 -213T212 -97T170 56T152 251Z"></path><path id="MJX-27-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-27-TEX-SO-29" d="M305 251Q305 -145 69 -349H56Q43 -349 39 -347T35 -338Q37 -333 60 -307T108 -239T160 -136T204 27T221 250T204 473T160 636T108 740T60 807T35 839Q35 850 50 850H56H69Q197 743 256 566Q305 425 305 251Z"></path><path id="MJX-27-TEX-I-1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path><path id="MJX-27-TEX-I-1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use data-c="1D435" xlink:href="#MJX-27-TEX-I-1D435"></use></g><g data-mml-node="TeXAtom" transform="translate(792,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D456" xlink:href="#MJX-27-TEX-I-1D456"></use></g><g data-mml-node="mi" transform="translate(345,0)"><use data-c="1D457" xlink:href="#MJX-27-TEX-I-1D457"></use></g></g></g><g data-mml-node="mstyle" transform="translate(1377.3,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="mo" transform="translate(1933.1,0)"><use data-c="3D" xlink:href="#MJX-27-TEX-N-3D"></use></g><g data-mml-node="mstyle" transform="translate(2711.1,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="munderover" transform="translate(3266.8,0)"><g data-mml-node="mo"><use data-c="2211" xlink:href="#MJX-27-TEX-LO-2211"></use></g><g data-mml-node="TeXAtom" transform="translate(92.3,-1087.9) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D45D" xlink:href="#MJX-27-TEX-I-1D45D"></use></g><g data-mml-node="mo" transform="translate(503,0)"><use data-c="3D" xlink:href="#MJX-27-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(1281,0)"><use data-c="31" xlink:href="#MJX-27-TEX-N-31"></use></g></g><g data-mml-node="TeXAtom" transform="translate(350.4,1150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D440" xlink:href="#MJX-27-TEX-I-1D440"></use></g></g></g><g data-mml-node="munderover" transform="translate(4877.5,0)"><g data-mml-node="mo"><use data-c="2211" xlink:href="#MJX-27-TEX-LO-2211"></use></g><g data-mml-node="TeXAtom" transform="translate(107.5,-1087.9) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D45E" xlink:href="#MJX-27-TEX-I-1D45E"></use></g><g data-mml-node="mo" transform="translate(460,0)"><use data-c="3D" xlink:href="#MJX-27-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(1238,0)"><use data-c="31" xlink:href="#MJX-27-TEX-N-31"></use></g></g><g data-mml-node="TeXAtom" transform="translate(408,1150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D441" xlink:href="#MJX-27-TEX-I-1D441"></use></g></g></g><g data-mml-node="msubsup" transform="translate(6488.2,0)"><g data-mml-node="mi"><use data-c="1D434" xlink:href="#MJX-27-TEX-I-1D434"></use></g><g data-mml-node="mi" transform="translate(783,413) scale(0.707)"><use data-c="1D447" xlink:href="#MJX-27-TEX-I-1D447"></use></g><g data-mml-node="TeXAtom" transform="translate(783,-247) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D45E" xlink:href="#MJX-27-TEX-I-1D45E"></use></g><g data-mml-node="mi" transform="translate(460,0)"><use data-c="1D45D" xlink:href="#MJX-27-TEX-I-1D45D"></use></g></g></g><g data-mml-node="mstyle" transform="translate(8002.1,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="mfrac" transform="translate(8169.1,0)"><g data-mml-node="mn" transform="translate(677.5,676)"><use data-c="31" xlink:href="#MJX-27-TEX-N-31"></use></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mn"><use data-c="32" xlink:href="#MJX-27-TEX-N-32"></use></g><g data-mml-node="mi" transform="translate(500,0)"><use data-c="1D70B" xlink:href="#MJX-27-TEX-I-1D70B"></use></g><g data-mml-node="mi" transform="translate(1070,0)"><use data-c="1D456" xlink:href="#MJX-27-TEX-I-1D456"></use></g></g><rect width="1615" height="60" x="120" y="220"></rect></g><g data-mml-node="msub" transform="translate(10190.8,0)"><g data-mml-node="mo" transform="translate(0 1)"><use data-c="222E" xlink:href="#MJX-27-TEX-LO-222E"></use></g><g data-mml-node="TeXAtom" transform="translate(589,-896.4) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="7C" xlink:href="#MJX-27-TEX-N-7C"></use></g><g data-mml-node="mi" transform="translate(278,0)"><use data-c="1D467" xlink:href="#MJX-27-TEX-I-1D467"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(743,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="7C" xlink:href="#MJX-27-TEX-N-7C"></use></g></g><g data-mml-node="mo" transform="translate(1021,0)"><use data-c="3D" xlink:href="#MJX-27-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(1799,0)"><use data-c="31" xlink:href="#MJX-27-TEX-N-31"></use></g></g></g><g data-mml-node="mstyle" transform="translate(12455.4,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="msup" transform="translate(12455.1,0)"><g data-mml-node="mi"><use data-c="1D467" xlink:href="#MJX-27-TEX-I-1D467"></use></g><g data-mml-node="TeXAtom" transform="translate(498,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mstyle" transform="scale(1.414)"><g data-mml-node="mspace"></g></g><g data-mml-node="mi" transform="translate(236.2,0)"><use data-c="1D45D" xlink:href="#MJX-27-TEX-I-1D45D"></use></g><g data-mml-node="mo" transform="translate(739.2,0)"><use data-c="2212" xlink:href="#MJX-27-TEX-N-2212"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="OPEN" transform="translate(1517.2,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="28" xlink:href="#MJX-27-TEX-SO-28"></use></g></g><g data-mml-node="mi" transform="translate(1975.2,0)"><use data-c="1D440" xlink:href="#MJX-27-TEX-I-1D440"></use></g><g data-mml-node="mo" transform="translate(3026.2,0)"><use data-c="2B" xlink:href="#MJX-27-TEX-N-2B"></use></g><g data-mml-node="mn" transform="translate(3804.2,0)"><use data-c="31" xlink:href="#MJX-27-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(4304.2,0)"><use data-c="2212" xlink:href="#MJX-27-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(5082.2,0)"><use data-c="1D457" xlink:href="#MJX-27-TEX-I-1D457"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="CLOSE" transform="translate(5494.2,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="29" xlink:href="#MJX-27-TEX-SO-29"></use></g></g><g data-mml-node="mo" transform="translate(5952.2,0)"><use data-c="2212" xlink:href="#MJX-27-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(6730.2,0)"><use data-c="31" xlink:href="#MJX-27-TEX-N-31"></use></g></g></g><g data-mml-node="mstyle" transform="translate(18115.6,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="mi" transform="translate(18282.6,0)"><use data-c="1D451" xlink:href="#MJX-27-TEX-I-1D451"></use></g><g data-mml-node="mi" transform="translate(18802.6,0)"><use data-c="1D467" xlink:href="#MJX-27-TEX-I-1D467"></use></g><g data-mml-node="mstyle" transform="translate(19267.6,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="mfrac" transform="translate(19545.6,0)"><g data-mml-node="mn" transform="translate(677.5,676)"><use data-c="31" xlink:href="#MJX-27-TEX-N-31"></use></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mn"><use data-c="32" xlink:href="#MJX-27-TEX-N-32"></use></g><g data-mml-node="mi" transform="translate(500,0)"><use data-c="1D70B" xlink:href="#MJX-27-TEX-I-1D70B"></use></g><g data-mml-node="mi" transform="translate(1070,0)"><use data-c="1D456" xlink:href="#MJX-27-TEX-I-1D456"></use></g></g><rect width="1615" height="60" x="120" y="220"></rect></g><g data-mml-node="msub" transform="translate(21567.3,0)"><g data-mml-node="mo" transform="translate(0 1)"><use data-c="222E" xlink:href="#MJX-27-TEX-LO-222E"></use></g><g data-mml-node="TeXAtom" transform="translate(589,-896.4) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="7C" xlink:href="#MJX-27-TEX-N-7C"></use></g><g data-mml-node="mi" transform="translate(278,0)"><use data-c="1D464" xlink:href="#MJX-27-TEX-I-1D464"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(994,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="7C" xlink:href="#MJX-27-TEX-N-7C"></use></g></g><g data-mml-node="mo" transform="translate(1272,0)"><use data-c="3D" xlink:href="#MJX-27-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(2050,0)"><use data-c="31" xlink:href="#MJX-27-TEX-N-31"></use></g></g></g><g data-mml-node="mstyle" transform="translate(24009.4,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="msup" transform="translate(24009,0)"><g data-mml-node="mi"><use data-c="1D464" xlink:href="#MJX-27-TEX-I-1D464"></use></g><g data-mml-node="TeXAtom" transform="translate(749,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mstyle" transform="scale(1.414)"><g data-mml-node="mspace"></g></g><g data-mml-node="mi" transform="translate(236.2,0)"><use data-c="1D45E" xlink:href="#MJX-27-TEX-I-1D45E"></use></g><g data-mml-node="mo" transform="translate(696.2,0)"><use data-c="2212" xlink:href="#MJX-27-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(1474.2,0)"><use data-c="1D456" xlink:href="#MJX-27-TEX-I-1D456"></use></g><g data-mml-node="mo" transform="translate(1819.2,0)"><use data-c="2212" xlink:href="#MJX-27-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(2597.2,0)"><use data-c="31" xlink:href="#MJX-27-TEX-N-31"></use></g></g></g><g data-mml-node="mstyle" transform="translate(26998.1,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="mi" transform="translate(27165.1,0)"><use data-c="1D451" xlink:href="#MJX-27-TEX-I-1D451"></use></g><g data-mml-node="mi" transform="translate(27685.1,0)"><use data-c="1D464" xlink:href="#MJX-27-TEX-I-1D464"></use></g></g></g>
+</svg>
+</center>
+
+# Improving WG21 Papers
+
+There's no reason this should be limited to source code, we can apply this same technology to improve papers submitted
+to WG21:
+
+<style>
+#improve {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    background: var(--bg);
+    color: var(--text);
+    border: 4px solid var(--logo-bg);
+    outline: 0 !important;
+    font-size: 1.25em;
+    cursor: pointer;
+}
+body.improved {
+    writing-mode: vertical-rl;
+}
+body.improved img,
+body.improved svg.math {
+    transform: rotate(90deg);
+    max-height: 500px;
+}
+body.improved a.self-link {
+    left: 0;
+    top: calc(-1 * (3.5rem - 26px));
+    transform: rotate(90deg);
+}
+body.improved .vertical pre {
+  writing-mode: horizontal-tb;
+}
+</style>
+
+<button id="improve">Improve this paper</button>
+
+<script>
+document.getElementById("improve").addEventListener("click", () => {
+    // toggleSidebar(false);
+    if(document.body.classList.contains("toc-sidebar")) {
+        document.getElementById("toc-toggle").click();
+    }
+    document.body.classList.add("improved");
+    window.scroll({
+        top: 0,
+        left: document.body.scrollWidth,
+        behavior: "smooth",
+    });
+}, false);
+</script>
+
 # Proposed Wording
 
 <style>
@@ -343,12 +561,27 @@ div.delall pre {
 Proposed wording relative to [[!N4950]]:
 
 
+# Annex A: Fig E
+
+Fig E:
+
+<img src="./figs.jpg" alt="Two figs">
 
 <pre class="biblio">
 {
     "rigtorp": {
-        "title": "Erik Rigtorp's SPSCQueue",
+        "title": "SPSCQueue",
+        "authors": [
+            "Erik Rigtorp"
+        ],
         "href": "https://github.com/rigtorp/SPSCQueue"
+    },
+    "binocularvisionintheropods": {
+        "title": "Binocular Vision in Theropod Dinosaurs",
+        "authors": [
+            "Kent A. Stevens"
+        ],
+        "href": "https://www.researchgate.net/profile/Kent-Stevens/publication/228671730_Binocular_vision_in_theropod_dinosaurs/links/0f317533da394affe6000000/Binocular-vision-in-theropod-dinosaurs.pdf"
     }
 }
 </pre>
