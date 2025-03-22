@@ -166,8 +166,8 @@ nature and evidenced by the eye placement in the skulls of these dinosaurs:
 
 Fig D: A Tyrannosaurus rex pictured making the famous "pogchamp" face
 <div>
-<center><img src="./trex.png" alt="Trex poggers" style="max-height: 500px; width: auto;"></center>
-<center><i>Source: [[binocularvisionintheropods inline]]</i></center>
+    <center><img src="./trex.png" alt="Trex poggers" style="max-height: 500px; width: auto;"></center>
+    <center><i>Source: [[binocularvisionintheropods inline]]</i></center>
 </div>
 
 Note: Despite possibly being fluffy and covered by feathers, do not pet these animals.
@@ -175,7 +175,7 @@ Note: Despite possibly being fluffy and covered by feathers, do not pet these an
 As such, we believe the Tyrannosaurus rex is uniquely well-equipped for modern wide-screen monitors, and would probably
 program quite effectively on such devices. We are currently seeking funding for exploring this hypothesis.
 
-Supplementary fig: [[#annex-a-fig-e]]
+See also: [[#annex-a-supplemental-figs]]
 
 # Recommended Solution
 
@@ -558,11 +558,14 @@ div.delall pre {
 Proposed wording relative to [[!N4950]]:
 
 
-# Annex A: Fig E
+# Annex A: Supplemental figs
 
-Fig E:
+Fig E and G:
 
-<img src="./figs.jpg" alt="Two figs">
+<div>
+    <img src="./figs.jpg" alt="Two figs">
+    <center><i>Source: [freerange](https://freerangestock.com/photos/173822/two-figs-one-cut-open-on-a-wood-surface.html)</i></center>
+</div>
 
 <pre class="biblio">
 {
