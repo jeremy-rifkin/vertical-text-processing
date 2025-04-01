@@ -2,16 +2,16 @@
 Title: Vertical Text Processing
 Group: WG21
 Audience: EWG
-Shortname: Pnnnn
+Shortname: P3665
 Revision: 0
-Status: D
+Status: P
 Date: 2025-04-01
 Editor: Jeremy Rifkin, jeremy@rifkin.dev
 Editor: Levi de koning
-Abstract: While canonically in the west text is written horizontally, many writing systems can be written vertically. Yet, C++ offers no standard support for such text. This paper outlines a proposal to rectify the situation.
+Abstract: While text is most often written horizontally, many writing systems can be written vertically. Yet, C++ offers no standard support for such text. This paper outlines a proposal to rectify the situation.
 Markup Shorthands: markdown on
-ED: https://jeremy-rifkin.github.io/proposals/drafts/cpp/vertical-text-processing-1.html
-!Source: [https://github.com/jeremy-rifkin/proposals/blob/main/cpp/vertical-text-processing.bs](https://github.com/jeremy-rifkin/proposals/blob/main/cpp/vertical-text-processing.bs)
+ED: https://wg21.link/P3665R0
+!Source: [https://github.com/jeremy-rifkin/vertical-text-processing/blob/main/vertical-text-processing.bs](https://github.com/jeremy-rifkin/vertical-text-processing/blob/main/vertical-text-processing.bs)
 </pre>
 
 <style>
@@ -61,7 +61,7 @@ img {
 
 Many writing systems, notably a handful of East Asian scripts, may be oriented either horizontally or vertically. While
 code is generally written left to write and top to bottom, there is no inherent reason this must be the case. In fact,
-we will show that vertical writing of code has numerous benefits over traditional horizontal code.
+in this paper we will show that vertical writing of code has numerous benefits over traditional horizontal code.
 
 In this paper we propose support for vertical text in C++:
 
@@ -117,11 +117,11 @@ In this paper we propose support for vertical text in C++:
 
 In addition to accessibility and friendliness for natural writing styles of all cultures, vertical writing of code
 allows for better use of modern computer monitors. Over the last few decades, monitors have definitively trended to get
-wider but not so much taller (exhibit a, exhibit b). We observe that programmers typically limit their line length (when written left-to-right) at fixed
-character limits such as 80, 100, or 120. Meanwhile, the length of a source file typically has no hard limits. Given
-recent trends and accepted practices with regards to line length limitations, it's clearly much more beneficial to write
-code vertically with vertical line limitations so that code may benefit from today's wide screen monitors, as well as
-future wider screen monitors.
+wider but not so much taller (fig a). We observe that programmers typically limit their line length (when written
+left-to-right) at fixed character limits such as 80, 100, or 120. Meanwhile, the vertical length of a source file
+typically has no hard limits. Given recent trends and accepted practices with regards to line length limitations, it's
+clearly beneficial to write code vertically with line length limitations applying on the vertical access so that code
+may benefit from today's wide screen monitors, as well as future wider screen monitors.
 
 Fig A: An ultra-widescreen monitor, circa 2025
 
@@ -130,9 +130,9 @@ Fig A: An ultra-widescreen monitor, circa 2025
     <center><i>Image Source: [RTINGS.com](https://www.rtings.com/monitor/reviews/best/ultrawide-gaming)</i></center>
 </div>
 
-Because humans have a much narrower vertical field of view compared to horizontal, it's not a satisfactory solution to
-rotate monitors vertically. Additionally, with today's ultra-wide monitors, vertical orientation would not work on most
-desks and would lead to unergonomic craning of the neck.
+Because humans have a much narrower vertical field of view compared to horizontal (fig b), it's not a satisfactory
+solution to rotate monitors vertically. Additionally, with today's ultra-wide monitors, vertical orientation would not
+work on most desks and would lead to unergonomic craning of the neck.
 
 As such, by taking advantage of vertical text on ultrawide monitors, we can read more characters before we need to move
 our head reducing excessive muscle movement during programming.
@@ -172,8 +172,9 @@ Fig D: A Tyrannosaurus rex pictured making the famous "pogchamp" face
 
 Note: Despite possibly being fluffy and covered by feathers, do not pet these animals.
 
-As such, we believe the Tyrannosaurus rex is uniquely well-equipped for modern wide-screen monitors, and would probably
-program quite effectively on such devices. We are currently seeking funding for exploring this hypothesis.
+As such, we believe the Tyrannosaurus rex and other tyrannosaurids and therapods are well-equipped for modern
+wide-screen monitors, and would likely program quite effectively in the vertical orientation on such devices. We are
+currently seeking funding for exploring this hypothesis.
 
 See also: [[#annex-a-supplemental-figs]]
 
@@ -358,7 +359,7 @@ to if it were written horizontally. Naturally, there are no rules stating that c
 horizontally by a text editor. However, this convention has been so deeply ingrained into software since the beginning
 of the universe (January 1, 1970), that it is de-facto a law of computer software.
 
-We find any editor tooling solutions undesirable for a couple of important reasons.
+We find any editor tooling solutions undesirable for a couple of important reasons:
 
 Firstly, despite decades of innovation in the text editor domain, no tooling supports this obvious feature. As such, we
 don't anticipate any native tooling support any time soon. Naturally, even if some tools added support, there will
@@ -379,9 +380,10 @@ the standard-sanctioned approach.
 
 # Switching out of vertical processing mode
 
-The syntax begs the question, what about `#undef __vertical_processing`? The solution is simply elegant once the
+The syntax begs the question: What about `#undef __vertical_processing`? The solution is simply elegant once the
 preprocessor / lexer encounters `#undef __vertical_processing` we imediatly switch back to the legacy mode of
-processing.
+processing. Naturally, this directive must also be horizontal thanks to reasonable but unfortunate decisions made early
+on in the design of C++.
 
 For example:
 
@@ -422,7 +424,7 @@ a straightforward implementation by adding a new translation phase between phase
 compiler may trivially identify vertical processing sections within a file and apply the following transformation:
 
 For ease of implementation, we require the exact spelling `#define __vertical_processing` with no additinoal whitespace
-and we also require it to appear on its own line.
+in the middle and we also require it to appear on its own line.
 
 # Improving WG21 Papers
 
